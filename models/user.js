@@ -15,7 +15,7 @@ module.exports = (sequlize, DataTypes) =>
         type: DataTypes.STRING(100),
         allowNull: true
       },
-      provier: {
+      provider: {
         type: DataTypes.STRING(10),
         allowNull: false,
         defaultValue: "local"

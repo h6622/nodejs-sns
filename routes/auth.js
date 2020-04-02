@@ -11,7 +11,6 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
 
   try {
     const exUser = await User.findOne({ where: { email } });
-    console.log(exUser.password);
     if (exUser) {
       req.flash("joinError", "이미 가입된 이메일입니다.");
       return res.redirect("/join");
@@ -54,5 +53,17 @@ router.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
+
+router.get("/kakao", passport.authenticate("kakao"));
+
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/"
+  }),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 
 module.exports = router;
